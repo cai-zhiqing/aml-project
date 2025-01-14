@@ -17,17 +17,12 @@ from scipy import stats
 
 np.random.seed(0)
 
-
 def load_data():
     x_train_df = pd.read_csv('X_train.csv').drop(labels='id',axis=1)
     x_test_df = pd.read_csv('X_test.csv').drop(labels='id',axis=1)
     y_train_df = pd.read_csv('y_train.csv').drop(labels='id',axis=1)
     
-    
     return x_train_df,y_train_df,x_test_df
-
-
-
 
 def remove_outliers(X,y=None, threshold=3.25):
     """
@@ -45,7 +40,6 @@ def remove_outliers(X,y=None, threshold=3.25):
     outliers_mask = (z_scores > threshold).any(axis=1)
     # Return the DataFrame without outliers
     return X[~outliers_mask], y[~outliers_mask]
-
 
 #print(check_estimator(OutlierHandler(),generate_only=False))
 
@@ -68,8 +62,6 @@ def preprocess(X,y,Xtest):
     """
     X,y=remove_outliers(X,y)
     return X,y,Xtest
-
-
 
 def get_data_ready(Xtrain, Ytrain, Xtest):
     Xtrain,Ytrain,Xtest = preprocess(Xtrain,Ytrain,Xtest)
@@ -123,7 +115,6 @@ def writeToFile(results):
     res_df = pd.read_csv('sample.csv')
     res_df['y']=results
     res_df.to_csv('results.csv',index=False,header=True)
-    
     
 x_train_df,y_train_df,x_test_df = load_data()
 xtrain, ytrain, xeval, yeval, Xtest, yscaler, Xtrain, Ytrain = get_data_ready(x_train_df, y_train_df, x_test_df)
