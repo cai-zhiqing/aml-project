@@ -63,8 +63,6 @@ def jaccard_loss(y_true, y_pred, smooth=100):
     #return- jac * smooth
     return -jaccard_similarity(y_true, y_pred)
 
-
-
 def dice_loss(pred,tar):
     pred =pred.view(-1)
     tar=tar.view(-1)
@@ -153,7 +151,6 @@ class UNET(nn.Module):
         optim.step()
         return loss
     
-    
     def train_model(self, train_loader, val_loader=None, num_epochs=100):
         optim = torch.optim.Adam(self.parameters(), lr=0.1, weight_decay=1e-6)
         scheduler = lr_scheduler.StepLR(optim, step_size=30, gamma=0.1)
@@ -178,7 +175,6 @@ class UNET(nn.Module):
         
             self.eval()
             
-
             if val_loader is not None:
                 # Validation
                 self.eval()
@@ -261,12 +257,10 @@ def create_train_set_test_set(train_data, test_size=0.25, batch_size=32, shuffle
     test_loader = DataLoader(TensorDataset(X_test_data, y_test_data), batch_size=batch_size, shuffle=shuffle)
 
     return train_loader, test_loader
-        
-        
+            
 train_data = load_zipped_pickle("task3/train.pkl")
 test_data = load_zipped_pickle("task3/test.pkl")
 samples = load_zipped_pickle("task3/sample.pkl")
-
 
 train,test = create_train_set_test_set(train_data)
 
